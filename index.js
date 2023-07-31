@@ -1,15 +1,11 @@
-const form = document.querySelector("form");
-const input = document.querySelector("input");
-const ul = document.querySelector("ul");
+const hour = document.querySelector(".hour");
+const min = document.querySelector(".min");
+const sec = document.querySelector(".sec");
+function clock() {
+  const now = new Date();
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  if (input.value !== "") {
-    const li = document.createElement("li");
-    li.innerText = input.value;
-    ul.appendChild(li);
-
-    input.value = "";
-  }
-});
+  hour.innerText = now.getHours();
+  min.innerText = now.getMinutes();
+  sec.innerText = now.getSeconds();
+}
+setInterval(clock, 1000); // 1초마다 clock함수를 실행.
