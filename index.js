@@ -1,11 +1,46 @@
-const hour = document.querySelector(".hour");
-const min = document.querySelector(".min");
-const sec = document.querySelector(".sec");
-function clock() {
-  const now = new Date();
+const buttons = document.querySelectorAll("button");
+const computerChoice = document.querySelector(".computer-choice");
+const userChoice = document.querySelector(".you-choice");
+const winner = document.querySelector(".result");
 
-  hour.innerText = now.getHours();
-  min.innerText = now.getMinutes();
-  sec.innerText = now.getSeconds();
-}
-setInterval(clock, 1000); // 1초마다 clock함수를 실행.
+const result = ["가위", "바위", "보"];
+
+const show = (user, computer, msg) => {
+  computerChoice.innerText = computer;
+  userChoice.innerText = user;
+  winner.innerText = msg;
+};
+
+const game = (user, computer) => {
+  let message;
+
+  if (user === computer) {
+    message = "무승부";
+  } else {
+    switch (user + computer) {
+      case "가위보":
+      case "바위가위":
+      case "보바위":
+        message = "사용자 승리!";
+        break;
+      case "가위바위":
+      case "바위주먹":
+      case "보가위":
+        message = "컴퓨터 승리!";
+        break;
+    }
+  }
+
+  show(user, computer, message);
+};
+
+const play = (event) => {
+  const user = event.target.innerText;
+  const randomIndex = Math.floor(Math.random() * 3);
+  const computer = result[randomIndex];
+  game(user, computer);
+};
+
+buttons.forEach((button) => {
+  button.addEventListener("click", play);
+});
